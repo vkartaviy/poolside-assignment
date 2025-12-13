@@ -1,0 +1,34 @@
+{
+  "name": "@poolside/todo-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Collaborative TODO App - Poolside Take-Home Assignment",
+  "author": "Volodymyr Kartavyi",
+  "packageManager": "pnpm@10.26.0",
+  "type": "module",
+  "scripts": {
+    "predev": "pnpm build:packages",
+    "dev": "concurrently -n shared,host,server,web,desktop -c gray,gray,cyan,yellow,magenta \"pnpm --filter @poolside/core dev\" \"pnpm --filter @poolside/host dev\" \"pnpm run dev:server\" \"pnpm run dev:web\" \"pnpm run dev:desktop\"",
+    "dev:server": "pnpm --filter @poolside/server dev",
+    "dev:desktop": "pnpm --filter @poolside/desktop dev",
+    "dev:web": "pnpm --filter @poolside/web dev",
+    "build": "pnpm -r build",
+    "build:packages": "pnpm --filter @poolside/core build && pnpm --filter @poolside/host build",
+    "build:server": "pnpm --filter @poolside/server build",
+    "build:desktop": "pnpm --filter @poolside/desktop build",
+    "build:web": "pnpm --filter @poolside/web build",
+    "test": "pnpm -r test",
+    "test:server": "pnpm --filter @poolside/server test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "prettier": "^3.7.4",
+    "prettier-plugin-svelte": "^3.4.1",
+    "typescript": "^5.9.3"
+  }
+}

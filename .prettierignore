@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml
+
+# Build outputs
+dist
+build
+.svelte-kit
+out
+
+# IDE and cache
+.vscode
+.idea
+*.log
+.DS_Store
+
+# Tauri build artifacts
+apps/desktop/src-tauri/target

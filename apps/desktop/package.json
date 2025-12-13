@@ -1,0 +1,29 @@
+{
+  "name": "@poolside/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
+    "dev": "electron-vite dev --watch",
+    "build": "pnpm build:renderer && electron-vite build",
+    "build:renderer": "pnpm --filter @poolside/web build && cp -r ../web/dist out/renderer",
+    "preview": "electron-vite preview",
+    "clean": "rm -rf out",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@electron-toolkit/utils": "^4.0.0",
+    "@poolside/core": "workspace:*",
+    "eventsource": "^4.1.0"
+  },
+  "devDependencies": {
+    "@electron-toolkit/tsconfig": "^2.0.0",
+    "@types/eventsource": "^3.0.0",
+    "@types/node": "^22.19.2",
+    "electron": "^39.2.7",
+    "electron-vite": "^5.0.0",
+    "typescript": "^5.9.3"
+  }
+}

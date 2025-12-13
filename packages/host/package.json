@@ -1,0 +1,36 @@
+{
+  "name": "@poolside/host",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./platform/browser": {
+      "types": "./dist/platform/browser-host-platform.d.ts",
+      "import": "./dist/platform/browser-host-platform.js"
+    },
+    "./platform/electron": {
+      "types": "./dist/platform/electron-host-platform.d.ts",
+      "import": "./dist/platform/electron-host-platform.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@poolside/core": "workspace:*",
+    "svelte": "^5.46.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.2",
+    "typescript": "^5.9.3"
+  }
+}

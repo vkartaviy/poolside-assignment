@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+/* Poolside Theme */
+@theme {
+  /* Brand Colors */
+  --color-primary: #4137ff;
+  --color-primary-hover: #4975ff;
+
+  --color-primary-100: #d8beff;
+  --color-primary-200: #c69ffc;
+  --color-primary-300: #9b9bfe;
+  --color-primary-400: #7596ff;
+  --color-primary-500: #4c91ff;
+  --color-primary-600: #4b84ff;
+  --color-primary-700: #4975ff;
+  --color-primary-800: #4137ff;
+  --color-primary-900: #010080;
+
+  /* Neutral Colors (Dark Theme) */
+  --color-background: #111111;
+  --color-surface: #2a2a2a;
+  --color-surface-hover: #3a3a3a;
+  --color-surface-active: #4a4a4a;
+  --color-border: #3a3a3a;
+  --color-border-hover: #4a4a4a;
+
+  /* Text Colors */
+  --color-text: #e0e0e0;
+  --color-text-muted: #999999;
+  --color-text-dim: #777777;
+
+  /* Mono Colors */
+  --color-mono-000: #fff;
+  --color-mono-100: #fbfaf6;
+  --color-mono-200: #f7f6ef;
+  --color-mono-300: #eeede6;
+  --color-mono-400: #dad9d2;
+  --color-mono-500: #b3b0a9;
+  --color-mono-600: #93908b;
+  --color-mono-700: #6f6d69;
+  --color-mono-800: #4e4b48;
+  --color-mono-900: #000;
+
+  /* Semantic Colors */
+  --color-success: #66bb6a;
+  --color-error: #ef5350;
+  --color-warning: #ffb74d;
+  --color-info: #4fc3f7;
+
+  /* Font Family */
+  --font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  --animate-fade-in: fade-in 0.4s ease-in forwards;
+  --animate-fade-out: fade-in 0.2s ease-out reverse forwards;
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 100;
+    }
+  }
+}
+
+html,
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+}
+
+html,
+body,
+#app {
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+@utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+@utility animate-fade-in-delayed {
+  @apply animate-fade-in duration-1000 [animation-delay:600ms];
+}
