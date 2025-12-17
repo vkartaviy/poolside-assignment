@@ -48,7 +48,7 @@ pnpm dev:web       # Web UI on http://localhost:5173
 pnpm dev:desktop   # Electron app
 
 # Simulate slow network (adds latency to all API requests)
-SIMULATED_LATENCY_MS=2000 pnpm dev:server
+SIMULATED_LATENCY_MS=2000 pnpm dev
 ```
 
 ### Testing
