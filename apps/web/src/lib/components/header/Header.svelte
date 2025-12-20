@@ -21,7 +21,7 @@
   )}
 >
   <div class="absolute flex w-full items-center justify-center pointer-events-none">
-    <img src={logo} alt="Poolside" class="h-5 w-auto opacity-80" />
+    <img src={logo} alt="poolside" class="h-5 w-auto opacity-80" />
   </div>
 
   <div class="flex items-center gap-1 pr-2 [-webkit-app-region:no-drag]">

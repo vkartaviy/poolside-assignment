@@ -409,4 +409,4 @@ Events: "connected", "changed"
 
 ## License
 
-This is a take-home assignment for Poolside.
+This is a take-home assignment for poolside.

@@ -105,7 +105,7 @@ When you add or change something, follow this order of thinking:
 - **clsx + tailwind-merge** via `cn()` helper for class merging
   - Import from `lib/tailwind.ts`
 - **Brand colors** (defined in theme):
-  - Primary accent: `#4137FF` (Poolside purple)
+  - Primary accent: `#4137FF` (poolside purple)
   - Use white text on primary buttons for contrast
 - **Reusable UI components** in `components/ui/`:
   - `Button` - with variants: primary, secondary, ghost, danger

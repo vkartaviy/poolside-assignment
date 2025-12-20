@@ -9,7 +9,7 @@
     <div class="flex-1 flex items-center justify-center opacity-0 animate-fade-in-delayed">
       <img
         src={logo}
-        alt="Poolside"
+        alt="poolside"
         class="w-full max-w-56 animate-pulse select-none pointer-events-none"
       />
     </div>

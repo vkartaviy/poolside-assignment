@@ -2,7 +2,7 @@
   "name": "@poolside/todo-app",
   "version": "1.0.0",
   "private": true,
-  "description": "Collaborative TODO App - Poolside Take-Home Assignment",
+  "description": "Collaborative TODO App - poolside Take-Home Assignment",
   "author": "Volodymyr Kartavyi",
   "packageManager": "pnpm@10.26.0",
   "type": "module",
