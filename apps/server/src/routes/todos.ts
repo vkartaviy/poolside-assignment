@@ -1,5 +1,13 @@
 /**
  * Todo CRUD routes with sync support.
+ *
+ * Delta sync uses a composite cursor `(updatedAt, todoId)` with server-side
+ * monotonic timestamps to ensure every write advances the cursor.
+ *
+ * Trade-off: The in-memory monotonic counter is a single-server simplification.
+ * For distributed deployments, we would need to either extend the cursor to
+ * `(updatedAt, serverId, todoId)` with per-server monotonic counters, or
+ * adopt Hybrid Logical Clocks (HLC) for causally-ordered timestamps.
  */
 
 import type { FastifyInstance } from 'fastify';
@@ -59,6 +67,8 @@ export async function todoRoutes(app: FastifyInstance): Promise<void> {
     }
 
     // Get todos (filtered by cursor if sync token provided)
+    // Current:     WHERE (updatedAt, id) > ($1, $2)
+    // Distributed: WHERE (updatedAt, serverId, id) > ($1, $2, $3)
     const todoList = await getTodosForList(listId, cursor);
 
     const lastTodo = todoList.at(-1);
