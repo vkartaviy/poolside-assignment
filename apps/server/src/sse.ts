@@ -57,6 +57,12 @@ export function notifyListChanged(listId: string): void {
 
   for (const reply of listSubscribers) {
     try {
+      // Trade-off: We ignore the return value of write() (backpressure signal).
+      // If a client is slow, write() returns false when the buffer is full (~16KB),
+      // and we should wait for 'drain' before writing more. For SSE notifications
+      // of ~15 bytes each, we'd need ~1000 rapid events to one slow client to hit
+      // this limit - unlikely for a todo app. High-frequency systems would track
+      // backpressured connections and skip/disconnect them until 'drain'.
       reply.raw.write(message);
     } catch {
       // Connection might be closed, remove it
