@@ -30,6 +30,16 @@ import { mergeTodos } from './merge.js';
 // Internal State
 // ============================================================================
 
+// Coalescing state: if a sync is requested while one is in progress, we queue
+// it instead of starting concurrent syncs. This prevents request storms when
+// multiple SSE events arrive rapidly.
+//
+// Trade-off: We use coalescing (queue while busy) rather than throttling (fixed
+// time window). This means we may make sequential syncs under burst load, but we
+// get the lowest possible latency. For a todo app this is the right choice -
+// updates are infrequent and users expect immediate feedback. High-frequency
+// collaborative apps would add throttling (at most one sync per N ms) to reduce
+// request volume at the cost of added latency.
 let isSyncing = false;
 let syncQueued = false;
 

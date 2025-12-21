@@ -39,6 +39,12 @@ export function unsubscribe(listId: string, reply: FastifyReply): void {
 /**
  * Notifies all subscribers of a list that something changed.
  * Clients should respond by performing a delta sync.
+ *
+ * Trade-off: We send immediately on every update rather than throttling.
+ * This prioritizes low latency over efficiency under burst load. For a todo app
+ * with infrequent updates, immediate notification is the right choice. High-frequency
+ * collaborative apps (e.g., real-time editors) would debounce here (batch changes
+ * within a 50ms window) to reduce SSE traffic at the cost of added latency.
  */
 export function notifyListChanged(listId: string): void {
   const listSubscribers = subscribers.get(listId);
