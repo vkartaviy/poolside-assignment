@@ -270,9 +270,19 @@ This mirrors how IDE extensions work: the extension host provides primitive I/O,
 | **TODO-specific sync**      | Not a generic sync framework | Avoid over-engineering for demo                              |
 | **No real authentication**  | User IDs without passwords   | Not in requirements                                          |
 | **No pagination**           | Won't scale to large lists   | Fine for demo purposes                                       |
-| **JSON file storage**       | Not encrypted in Electron    | Simple local persistence                                     |
+| **Single list assumption**  | Can't render multiple lists side-by-side | Global state is simpler; would refactor to per-list state manager |
 | **No delete functionality** | Can't remove todos           | Soft delete (`deletedAt`) is ready but UI not implemented    |
 | **Minimal error UX**        | Some errors handled silently | MVP scope - correct state maintained, user feedback deferred |
+| **Client-assigned createdAt** | Client can fake creation time | Only affects display order, not sync; server assigns `updatedAt` |
+| **Wall clock timestamps**   | Clock skew breaks multi-server sync | Single server; HLC would fix this for distributed deployment |
+| **No offline queue persistence** | Pending mutations lost on app close | Would persist to localStorage for true offline-first |
+| **Last-write-wins conflict** | No merge of concurrent changes | Simple retry loop; CRDTs would allow automatic merge |
+| **No causality in cursor**  | Concurrent writes get arbitrary order | Fine for delta sync; chat/CRDTs would need vector clocks |
+| **SSE immediate notify**    | More events under burst load | Low latency preferred; coalescing handles common case |
+| **SSE backpressure ignored** | Memory risk with slow clients | 15-byte payloads need ~1000 events to fill buffer; unlikely |
+| **SSE reconnect over window.online** | Plugin architecture specific | Webview's online status unreliable; SSE reconnect is authoritative |
+| **SSE notification-only**   | Extra round-trip vs pushing data | Single source of truth; resilient to missed events (cursor catches up) |
+| **JSON file storage**       | Not encrypted in Electron    | Simple local persistence                                     |
 | **macOS only**              | Windows/Linux not tested     | Development and testing done on macOS; cross-platform not verified |
 | **No Electron builder**     | Can't package for distribution | Dev mode only; electron-builder/forge intentionally skipped |
 
@@ -280,19 +290,32 @@ This mirrors how IDE extensions work: the extension host provides primitive I/O,
 
 ## Future Improvements
 
-1. **Data Persistence** - Replace in-memory store with the real database
+### Core Features
+1. **Data Persistence** - Replace in-memory store with a real database
 2. **Content editing** - Support title/description changes (mutation type scaffolding exists)
-3. **Conflict UX** - Add toast notification for conflicts
-4. **Deletions** - `deletedAt` field exists; add deletion endpoints/UI
-5. **Real authentication** - JWT or session-based auth
-6. **Pagination / virtualization** - For large todo lists
-7. **Offline persistence** - Persist mutation queue to survive app restarts
-8. **User display names** - Currently just IDs, no names shown
-9. **Todo descriptions** - Only titles exist, no body text
-10. **Search/filter** - Filter by state or search by title
-11. **Keyboard shortcuts** - Power user navigation
-12. **Undo support** - Revert accidental state changes
-13. **E2E tests** - Playwright for cross-browser testing
+3. **Deletions** - `deletedAt` field exists; add deletion endpoints/UI
+4. **Real authentication** - JWT or session-based auth
+5. **Pagination / virtualization** - For large todo lists
+
+### Sync & Distributed Systems
+6. **Multi-list rendering** - Refactor to `ListSyncManager` with per-list state for side-by-side lists
+7. **HLC timestamps** - Hybrid Logical Clocks for multi-server deployment without clock skew issues
+8. **Offline queue persistence** - Persist pending mutations to localStorage to survive app restarts
+9. **SSE debouncing** - Batch notifications in time window for high-frequency collaborative apps
+10. **SSE backpressure** - Track slow clients and skip/disconnect until `drain` event
+
+### UX
+11. **Conflict UX** - Add toast notification when version conflicts occur
+12. **User display names** - Currently just IDs, no names shown
+13. **Todo descriptions** - Only titles exist, no body text
+14. **Search/filter** - Filter by state or search by title
+15. **Keyboard shortcuts** - Power user navigation
+16. **Undo support** - Revert accidental state changes
+
+### Testing & Platform
+17. **E2E tests** - Playwright for cross-browser testing
+18. **Windows/Linux support** - Currently macOS only
+19. **Electron packaging** - Add electron-builder for distribution
 
 ---
 
@@ -409,4 +432,4 @@ Events: "connected", "changed"
 
 ## License
 
-This is a take-home assignment for poolside.
+This is a take-home assignment for [poolside](https://poolside.ai/).

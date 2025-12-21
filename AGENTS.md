@@ -107,6 +107,14 @@ When you add or change something, follow this order of thinking:
 - **Brand colors** (defined in theme):
   - Primary accent: `#4137FF` (poolside purple)
   - Use white text on primary buttons for contrast
+- **poolside brand naming** (per Brand Operating Guide):
+  - "poolside" is **always lowercase**, even at the start of a sentence
+  - "poolside" is the company name, not a product name
+  - Products use pattern: "poolside Assistant for [Platform]" (e.g., "poolside Assistant for Visual Studio Code")
+  - API naming: "poolside Developer API" (note: "Developer" is capitalized)
+  - Don't call products "app", "extension", or "plugin" externally - use "Assistant"
+  - ✅ `poolside`, `poolside Assistant for IntelliJ`, `poolside Developer API`
+  - ❌ `Poolside`, `PoolSide`, `the poolside app`, `poolside plugin`
 - **Reusable UI components** in `components/ui/`:
   - `Button` - with variants: primary, secondary, ghost, danger
   - `Input` - with size variants
